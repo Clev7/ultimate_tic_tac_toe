@@ -1,24 +1,29 @@
 import { Tile } from "./Tile";
 import styles from "@/app/board.module.css";
-import { useState } from "react";
 
-export function Board() {
+export type BoardState = string[];
+
+interface BoardWrapper {
+	contents: BoardState
+}
+
+export function Board({ contents }: BoardWrapper) {
 	return (
 			<table className={styles.board}>
 				<tr>
-					<Tile borders="br bb" />
-					<Tile borders="bl bb br"/>
-					<Tile borders="bl bb"/>
+					<Tile borders="br bb">{contents[0][0]}</Tile>
+					<Tile borders="bl bb br">{contents[0][1]}</Tile>
+					<Tile borders="bl bb">{contents[0][2]}</Tile>
 				</tr>
 				<tr>
-					<Tile borders="bt br bb"/>
-					<Tile borders="br bl bt bb"/>
-					<Tile borders="bt bb bl"/>
+					<Tile borders="bt br bb">{contents[1][0]}</Tile>
+					<Tile borders="br bl bt bb">{contents[1][1]}</Tile>
+					<Tile borders="bt bb bl">{contents[1][2]}</Tile>
 				</tr>
 				<tr>
-					<Tile borders="bt br"/>
-					<Tile borders="bl bt br"/>
-					<Tile borders="bl bt"/>
+					<Tile borders="bt br">{contents[2][0]}</Tile>
+					<Tile borders="bl bt br">{contents[2][1]}</Tile>
+					<Tile borders="bl bt">{contents[2][2]}</Tile>
 				</tr>
 			</table>
 	)
