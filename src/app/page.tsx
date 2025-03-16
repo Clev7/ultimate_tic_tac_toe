@@ -1,8 +1,20 @@
 import { Board } from "@/components/Board";
 import { BoardState } from "../components/Board";
-import { useState } from "react";
 
-type UtttBoard = BoardState[][];
+import { Dispatch, SetStateAction, useState } from "react";
+// import { JSX } from "react";
+
+export type UtttBoard = BoardState[][];
+
+export interface UtttBoardType {
+  utttBoard: UtttBoard
+  setUtttBoard: Dispatch<SetStateAction<UtttBoard>>
+}
+
+export interface Player {
+  currentPlayer: string,
+  setCurrentPlayer: Dispatch<SetStateAction<string>>
+}
 
 function initBoard(): UtttBoard {
   const [R, C, r, c] = [3, 3, 3, 3];
@@ -17,44 +29,29 @@ function initBoard(): UtttBoard {
 
 export default function Home() {
   const [utttBoard, setUtttBoard] = useState(initBoard());
+  const [currentPlayer, setCurrentPlayer] = useState("X");
 
+  const playerState = {
+    currentPlayer,
+    setCurrentPlayer
+  };
+
+  utttBoard.map((board_arr, Row) => {
+    return (
+      <tr>
+        {board_arr.map((board, Col) => (
+          <td className="board">
+            <Board playerState={playerState} row={Row} col={Col} utttb={utttBoard} />
+          </td>
+        ))}
+      </tr>
+    )
+  });
 
   return (
     <div id="home">
       <table id="ultimateBoard">
-        <tr>
-          <td className="board">
-            <Board contents={utttBoard[0][0]} />
-          </td>
-          <td className="board">
-            <Board contents={utttBoard[0][1]}/>
-          </td>
-          <td className="board">
-            <Board contents={utttBoard[0][2]}/>
-          </td>
-        </tr>
-        <tr>
-          <td className="board">
-            <Board contents={utttBoard[1][0]}/>
-          </td>
-          <td className="board">
-            <Board contents={utttBoard[1][1]}/>
-          </td>
-          <td className="board">
-            <Board contents={utttBoard[1][2]}/>
-          </td>
-        </tr>
-        <tr>
-          <td className="board">
-            <Board contents={utttBoard[2][0]}/>
-          </td>
-          <td className="board">
-            <Board contents={utttBoard[2][1]}/>
-          </td>
-          <td className="board">
-            <Board contents={utttBoard[2][2]}/>
-          </td>
-        </tr>
+        {utttBoard}
       </table>
     </div>
   );
