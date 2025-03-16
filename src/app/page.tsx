@@ -1,20 +1,8 @@
+import { useState } from "react";
+
 import { Board } from "@/components/Board";
-import { BoardState } from "../components/Board";
+import { UtttBoard, UtttBoardWrapper} from "@/types";
 
-import { Dispatch, SetStateAction, useState } from "react";
-// import { JSX } from "react";
-
-export type UtttBoard = BoardState[][];
-
-export interface UtttBoardType {
-  utttBoard: UtttBoard
-  setUtttBoard: Dispatch<SetStateAction<UtttBoard>>
-}
-
-export interface Player {
-  currentPlayer: string,
-  setCurrentPlayer: Dispatch<SetStateAction<string>>
-}
 
 function initBoard(): UtttBoard {
   const [R, C, r, c] = [3, 3, 3, 3];
@@ -37,11 +25,16 @@ export default function Home() {
   };
 
   utttBoard.map((board_arr, Row) => {
+    let utttbObj: UtttBoardWrapper = {
+      utttBoard,
+      setUtttBoard
+    };
+
     return (
       <tr>
         {board_arr.map((board, Col) => (
           <td className="board">
-            <Board playerState={playerState} row={Row} col={Col} utttb={utttBoard} />
+            <Board playerState={playerState} row={Row} col={Col} utttb={utttbObj} />
           </td>
         ))}
       </tr>

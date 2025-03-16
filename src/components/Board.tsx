@@ -1,17 +1,10 @@
 import { Tile } from "./Tile";
 import styles from "@/app/board.module.css";
-import { Player, UtttBoardType} from "@/app/page";
+import { BoardWrapper } from "@/types";
 
-export type BoardState = string[];
+export function Board({ row, col, utttb: utttbObj, playerState}: BoardWrapper) {
 
-interface BoardWrapper {
-	utttb: UtttBoardType,
-	row: number,
-	col: number,
-	playerState: Player
-}
-
-export function Board({ row, col, utttb, playerState}: BoardWrapper) {
+	let { utttBoard: utttb }= utttbObj;
 
 	return (
 		<table className={styles.board}>
