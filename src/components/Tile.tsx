@@ -1,8 +1,7 @@
 import styles from "@/app/tile.module.css";
-import { ReactNode } from "react";
-import { borderObj } from "@/types";
+import { TileWrapper } from "@/types";
 
-export function Tile({ borders, children, playerState}: borderObj) {
+export function Tile({ borders, children, playerState }: TileWrapper) {
 
 	return (
 		<td className={styles.td + " " + borders}>

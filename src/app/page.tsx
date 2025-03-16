@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Board } from "@/components/Board";
 import { UtttBoard, UtttBoardWrapper} from "@/types";
 
-
 function initBoard(): UtttBoard {
   const [R, C, r, c] = [3, 3, 3, 3];
   const INIT_VAL: string = "___";
@@ -34,7 +33,7 @@ export default function Home() {
       <tr>
         {board_arr.map((board, Col) => (
           <td className="board">
-            <Board playerState={playerState} row={Row} col={Col} utttb={utttbObj} />
+            <Board playerState={playerState} Row={Row} Col={Col} utttb={utttbObj} />
           </td>
         ))}
       </tr>

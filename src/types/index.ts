@@ -1,10 +1,9 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import { ReactNode } from "react";
+import { Dispatch, SetStateAction, ReactNode } from "react";
 
 export type UtttBoard = BoardState[][];
 
 export interface UtttBoardWrapper {
-  utttBoard: UtttBoard
+  utttBoard: UtttBoard,
   setUtttBoard: Dispatch<SetStateAction<UtttBoard>>
 }
 
@@ -12,8 +11,8 @@ export type BoardState = string[];
 
 export interface BoardWrapper {
 	utttb: UtttBoardWrapper,
-	row: number,
-	col: number,
+	Row: number,
+	Col: number,
 	playerState: Player
 }
 
@@ -22,9 +21,12 @@ export interface Player {
   setCurrentPlayer: Dispatch<SetStateAction<string>>
 }
 
-
-export interface borderObj {
+export interface TileWrapper {
+	Row: number,
+	Col: number,
+	row: number,
+	col: number,
 	borders: string,
 	children: ReactNode,
-	playerState: Player
+	playerState: Player,
 }
