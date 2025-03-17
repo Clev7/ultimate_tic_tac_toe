@@ -1,10 +1,12 @@
 import styles from "@/app/tile.module.css";
-import { TileWrapper } from "@/types";
+import { ITile } from "@/types";
 
-export function Tile({ borders, children, playerState }: TileWrapper) {
-
+export function Tile({ borders, children, currentPlayer, setCurrentPlayer }: ITile) {
 	return (
-		<td className={styles.td + " " + borders}>
+		<td className={styles.td + " " + borders} onClick={(event) => {
+			console.log("Clicked!");
+			setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
+		}}>
 			<div>
 			</div>
 		</td>

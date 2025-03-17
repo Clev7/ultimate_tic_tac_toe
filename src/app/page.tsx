@@ -1,7 +1,8 @@
-import { useState } from "react";
+"use client";
+import { JSX, useState } from "react";
 
 import { Board } from "@/components/Board";
-import { UtttBoard, UtttBoardWrapper} from "@/types";
+import { IBoard, UtttBoard, BoardState} from "@/types";
 
 function initBoard(): UtttBoard {
   const [R, C, r, c] = [3, 3, 3, 3];
@@ -23,19 +24,26 @@ export default function Home() {
     setCurrentPlayer
   };
 
-  utttBoard.map((board_arr, Row) => {
-    let utttbObj: UtttBoardWrapper = {
-      utttBoard,
-      setUtttBoard
-    };
-
+  const boardJSX: JSX.Element[] = utttBoard.map((board_arr: BoardState[], Row) => {
     return (
       <tr>
-        {board_arr.map((board, Col) => (
-          <td className="board">
-            <Board playerState={playerState} Row={Row} Col={Col} utttb={utttbObj} />
-          </td>
-        ))}
+        {board_arr.map((board: BoardState, Col) => {
+
+          let boardProps: IBoard = {
+            currentPlayer,
+            setCurrentPlayer,
+            utttBoard,
+            setUtttBoard,
+            Row,
+            Col
+          };
+
+          return (
+            <td className="board">
+              <Board {...boardProps}/>
+            </td>
+          )
+        })}
       </tr>
     )
   });
@@ -43,7 +51,7 @@ export default function Home() {
   return (
     <div id="home">
       <table id="ultimateBoard">
-        {utttBoard}
+        {boardJSX}
       </table>
     </div>
   );
