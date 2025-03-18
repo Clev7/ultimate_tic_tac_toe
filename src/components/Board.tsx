@@ -10,14 +10,16 @@ export function Board(boardProps: IBoard) {
 		["bt br", "bl bt br", "bl bt"]
 	]
 
-	let boardJSX = ordersProp.map((borderRow, row) => {
+	let boardJSX = ordersProp.map((borderRow: string[], row) => {
 		let { Row, Col } = boardProps;
 		let { utttBoard: utttb } = boardProps;
 
 		return (
-			<tr>
-				{borderRow.map((borderCol, col) => (
-					<Tile borders={borderCol} row={row} col={col} {...boardProps}>
+			<tr key={row}>
+				{borderRow.map((borderCol: string, col) => (
+					// 2 - row to orient it like
+					// a cartesian graph
+					<Tile key={col} borders={borderCol} row={2 - row} col={col} {...boardProps}>
 						{utttb[Row][Col][row][col]}
 					</Tile>
 				))}
@@ -27,7 +29,9 @@ export function Board(boardProps: IBoard) {
 
 	return (
 		<table className={styles.board}>
-			{boardJSX}
+			<tbody>
+				{boardJSX}
+			</tbody>
 		</table>
 	)
 }

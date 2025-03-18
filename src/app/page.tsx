@@ -19,27 +19,22 @@ export default function Home() {
   const [utttBoard, setUtttBoard] = useState(initBoard());
   const [currentPlayer, setCurrentPlayer] = useState("X");
 
-  const playerState = {
-    currentPlayer,
-    setCurrentPlayer
-  };
-
   const boardJSX: JSX.Element[] = utttBoard.map((board_arr: BoardState[], Row) => {
     return (
-      <tr>
+      <tr key={Row}>
         {board_arr.map((board: BoardState, Col) => {
 
-          let boardProps: IBoard = {
+          const boardProps: IBoard = {
             currentPlayer,
             setCurrentPlayer,
             utttBoard,
             setUtttBoard,
-            Row,
+            Row: 2 - Row,
             Col
           };
 
           return (
-            <td className="board">
+            <td key={Col} className="board">
               <Board {...boardProps}/>
             </td>
           )
@@ -51,7 +46,9 @@ export default function Home() {
   return (
     <div id="home">
       <table id="ultimateBoard">
-        {boardJSX}
+        <tbody>
+          {boardJSX}
+        </tbody>
       </table>
     </div>
   );
