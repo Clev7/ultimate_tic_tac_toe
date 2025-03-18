@@ -19,7 +19,7 @@ export function Board(boardProps: IBoard) {
 				{borderRow.map((borderCol: string, col) => (
 					// 2 - row to orient it like
 					// a cartesian graph
-					<Tile key={col} borders={borderCol} row={2 - row} col={col} {...boardProps}>
+					<Tile key={col} borders={borderCol} row={row} col={col} {...boardProps}>
 						{utttb[Row][Col][row][col]}
 					</Tile>
 				))}
