@@ -26,6 +26,7 @@ function handleClick(tileProps: ITile) {
   }
 
   setUtttBoard(
+    // TODO: Maybe generalize this for some style points?
     utttBoard.map((array_of_boards: BoardState[], curr_Row) => {
       if (curr_Row != Row) {
         return array_of_boards;
@@ -37,7 +38,6 @@ function handleClick(tileProps: ITile) {
         }
 
         return board.map((board_row: string, curr_row) => {
-          // You need to map it back
           if (curr_row != row) {
             return board_row;
           }
