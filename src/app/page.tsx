@@ -2,7 +2,12 @@
 import { JSX, useState } from "react";
 
 import { Board } from "@/components/Board";
-import { IBoard, UtttBoard, BoardState, BoardPosition} from "@/types";
+import {
+  IBoard, 
+  UtttBoard, 
+  BoardState, 
+  BoardPosition,
+  BoardResult} from "@/types";
 
 function initBoard(): UtttBoard {
   const [R, C, r, c] = [3, 3, 3, 3];
@@ -15,15 +20,17 @@ function initBoard(): UtttBoard {
   );
 }
 
+function initBoardResults(): BoardResult[][] {
+  const [R, C] = [3, 3];
+
+  return Array.from({ length: R }, () => Array.from({ length: C }, () => BoardResult.UNFINISHED))
+}
+
 export default function Home() {
   const [utttBoard, setUtttBoard] = useState(initBoard());
   const [currentPlayer, setCurrentPlayer] = useState("X");
   const [focusedBoard, setFocusedBoard] = useState([-1, -1] as BoardPosition);
-  const [isFinished, setIsFinished] = useState([
-    [false, false, false],
-    [false, false, false],
-    [false, false, false]
-  ]);
+  const [boardResults, setBoardResults] = useState(initBoardResults());
 
   const boardJSX: JSX.Element[] = utttBoard.map((boardArr: BoardState[], Row) => {
     return (
@@ -37,8 +44,8 @@ export default function Home() {
             setUtttBoard,
             focusedBoard,
             setFocusedBoard,
-            isFinished,
-            setIsFinished,
+            boardResults,
+            setBoardResults,
             Row: 2 - Row,
             Col
           };
