@@ -124,7 +124,7 @@ function handleClick(tileProps: ITile) {
 
   if (checkWin(utttBoard[Row][Col], row, col, currentPlayer)) {
     setBoardResults(bR => bR.map((curr_row, r_idx) => curr_row.map((res, c_idx) => {
-      if (r_idx === row && c_idx === col) {
+      if (r_idx === Row && c_idx === Col) {
         const { XWIN, OWIN } = BoardResult;
 
         // Essentially casting Player into BoardResult
@@ -135,7 +135,7 @@ function handleClick(tileProps: ITile) {
     })));
 
     if (checkWin(boardResults, Row, Col, currentPlayer)) {
-
+      console.log(currentPlayer + " won!");
     }
   }
 
@@ -150,10 +150,7 @@ function handleClick(tileProps: ITile) {
     return [row, col] as BoardPosition;
   });
 
-  // focusedRow
-
   // Check if board is played out now
-
   let foundEmpty = true;
   for (let r = 0; r < utttBoard[Row][Col].length; r++) {
     for (let c = 0; c < utttBoard[Row][Col][r].length; c++) {
@@ -167,6 +164,13 @@ function handleClick(tileProps: ITile) {
   }
 
   if (!foundEmpty) {
+    setBoardResults(bR => bR.map((curr_row, r_idx) => curr_row.map((res, c_idx) => {
+      if (r_idx === Row && c_idx === Col) {
+        return BoardResult.TIE;
+      }
+
+      return res;
+    })));
   }
 }
 

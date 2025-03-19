@@ -7,7 +7,8 @@ import {
   UtttBoard, 
   BoardState, 
   BoardPosition,
-  BoardResult} from "@/types";
+  BoardResult,
+  Player} from "@/types";
 
 function initBoard(): UtttBoard {
   const [R, C, r, c] = [3, 3, 3, 3];
@@ -28,7 +29,7 @@ function initBoardResults(): BoardResult[][] {
 
 export default function Home() {
   const [utttBoard, setUtttBoard] = useState(initBoard());
-  const [currentPlayer, setCurrentPlayer] = useState("X");
+  const [currentPlayer, setCurrentPlayer] = useState(Player.X);
   const [focusedBoard, setFocusedBoard] = useState([-1, -1] as BoardPosition);
   const [boardResults, setBoardResults] = useState(initBoardResults());
 
