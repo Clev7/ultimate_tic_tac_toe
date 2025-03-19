@@ -139,7 +139,7 @@ function handleClick(tileProps: ITile) {
     }
   }
 
-  setCurrentPlayer(turn => (turn === "X" ? "O" : "X"));
+  setCurrentPlayer(turn => (turn === Player.X ? Player.O : Player.X));
 
   setFocusedBoard(_ => {
     // Board is already played out
