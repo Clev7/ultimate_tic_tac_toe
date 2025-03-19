@@ -1,6 +1,5 @@
 import styles from "@/app/tile.module.css";
 import { BoardPosition, BoardResult, BoardState, ITile, UtttBoard, Player} from "@/types";
-import { brotliCompress } from "zlib";
 
 // Can check either a single board or the whole UtttBoard
 function checkWin(board: BoardState | BoardResult[][], row: number, col: number, currentPlayer: Player): boolean {
@@ -75,6 +74,7 @@ function handleClick(tileProps: ITile) {
       && (focusedRow != Row || focusedCol != Col)
   ) {
     console.log("Current board not in focus");
+    console.log(`Focused board: Row = ${focusedRow} Col = ${focusedCol}`)
     return;
   }
 
@@ -147,7 +147,7 @@ function handleClick(tileProps: ITile) {
       return [-1, -1] as BoardPosition;
     }
 
-    return [row, col] as BoardPosition;
+    return [2 - row, col] as BoardPosition;
   });
 
   // Check if board is played out now
