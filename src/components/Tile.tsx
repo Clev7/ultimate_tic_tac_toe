@@ -1,13 +1,13 @@
 import styles from "@/app/tile.module.css";
-import { BoardPosition, BoardResult, BoardState, ITile, UtttBoard } from "@/types";
+import { BoardPosition, BoardResult, BoardState, ITile, UtttBoard, Player} from "@/types";
 
-
-function checkBoardWin<T>(board: T, row: number, col: number, currentPlayer: ): boolean {
+// Can check either a single board or the whole UtttBoard
+function checkWin(board: BoardState | BoardResult[][], row: number, col: number, currentPlayer: Player): boolean {
   let won = true;
   for (let r = 0; r < row; r++) {
     won = true;
     for (let c = 0; c < col; c++) {
-      if (utttBoard[Row][Col][r][c] !== currentPlayer) {
+      if (board[r][c] !== currentPlayer) {
         won = false;
         break;
       }
@@ -19,7 +19,7 @@ function checkBoardWin<T>(board: T, row: number, col: number, currentPlayer: ): 
   won = true;
   for (let c = 0; c < col; c++) {
     for (let r = 0; r < row; r++) {
-      if (utttBoard[Row][Col][r][c] !== currentPlayer) {
+      if (board[r][c] !== currentPlayer) {
         won = false;
       }
     }
@@ -30,7 +30,7 @@ function checkBoardWin<T>(board: T, row: number, col: number, currentPlayer: ): 
   const diagLen = 3;
   won = true;
   for (let i = 0; i < diagLen; i++) {
-    if (utttBoard[Row][Col][i][i] !== currentPlayer) {
+    if (board[i][i] !== currentPlayer) {
       won = false;
       break;
     }
@@ -41,19 +41,13 @@ function checkBoardWin<T>(board: T, row: number, col: number, currentPlayer: ): 
   const antiDiagLen = 3;
   won = true;
   for (let i = 0; i < antiDiagLen; i++) {
-    if (utttBoard[Row][Col][2 - i][2 - i] !== currentPlayer) {
+    if (board[2 - i][2 - i] !== currentPlayer) {
       won = false;
       break;
     }
   }
 
   return false;
-}
-
-function checkGameWin({
-
-}):  {
-
 }
 
 function handleClick(tileProps: ITile) {
@@ -127,11 +121,7 @@ function handleClick(tileProps: ITile) {
   // See if board is full
 
 
-  if (checkBoardWin(tileProps)) {
-
-  } else if () {
-
-  }
+  if (checkBoardWin(utttBoard[Row][Col], row, col, currentPlayer))
 
   setCurrentPlayer(turn => (turn === "X" ? "O" : "X"));
 
