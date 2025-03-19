@@ -1,5 +1,6 @@
 import styles from "@/app/tile.module.css";
 import { BoardPosition, BoardResult, BoardState, ITile, UtttBoard, Player} from "@/types";
+import { brotliCompress } from "zlib";
 
 // Can check either a single board or the whole UtttBoard
 function checkWin(board: BoardState | BoardResult[][], row: number, col: number, currentPlayer: Player): boolean {
@@ -121,7 +122,22 @@ function handleClick(tileProps: ITile) {
   // See if board is full
 
 
-  if (checkBoardWin(utttBoard[Row][Col], row, col, currentPlayer))
+  if (checkWin(utttBoard[Row][Col], row, col, currentPlayer)) {
+    setBoardResults(bR => bR.map((curr_row, r_idx) => curr_row.map((res, c_idx) => {
+      if (r_idx === row && c_idx === col) {
+        const { XWIN, OWIN } = BoardResult;
+
+        // Essentially casting Player into BoardResult
+        return currentPlayer === Player.X ? XWIN : OWIN;
+      }
+      
+      return res;
+    })));
+
+    if (checkWin(boardResults, Row, Col, currentPlayer)) {
+
+    }
+  }
 
   setCurrentPlayer(turn => (turn === "X" ? "O" : "X"));
 
