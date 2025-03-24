@@ -9,28 +9,20 @@ export enum Player {
 }
 
 export enum BoardResult {
-	XWIN = "X",
-	OWIN = "O",
+	XWIN = Player.X,
+	OWIN = Player.O,
 	TIE = "T",
 	UNFINISHED = "U"
 }
 
-export interface IBoard {
+// Do we even need this as an interface?
+export interface IGame {
 	utttBoard: UtttBoard,
 	currentPlayer: Player,
 	focusedBoard: BoardPosition,
-	boardResults: BoardResult[][],
-	setUtttBoard: Dispatch<SetStateAction<UtttBoard>>,
-	setCurrentPlayer: Dispatch<SetStateAction<Player>>,
-	setFocusedBoard: Dispatch<SetStateAction<BoardPosition>>,
-	setBoardResults: Dispatch<SetStateAction<BoardResult[][]>>,
-	Row: number,
-	Col: number,
+	boardResults: BoardResult[][], // do we really need this??
 }
 
-export interface ITile extends IBoard {
-	row: number,
-	col: number,
-	borders: string,
+export interface ITile {
 	children: ReactNode,
 }

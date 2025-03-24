@@ -1,15 +1,40 @@
 import styles from "@/app/tile.module.css";
 import { BoardPosition, BoardResult, BoardState, ITile, UtttBoard, Player} from "@/types";
 
+export function Tile(tileProps: ITile) {
+  let {borders, children, utttBoard, currentPlayer} = tileProps;
+
+  // if (checkWin(utttBoard, currentPlayer))
+
+
+  return (
+    <td
+      className={styles.td + " " + borders}
+      onClick={() => handleClick(tileProps)}
+    >
+      <div>{children}</div>
+    </td>
+  );
+}
+
 // Can check either a single board or the whole UtttBoard
-function checkWin(board: BoardState | BoardResult[][], row: number, col: number, currentPlayer: Player): boolean {
+function checkWin(board: BoardState | BoardResult[][], currentPlayer: Player): boolean {
   let won = true;
+
+  const row = 3;
+  const col = 3;
+
+  console.log(`currentPlayer = ${currentPlayer}`);
   for (let r = 0; r < row; r++) {
     won = true;
     for (let c = 0; c < col; c++) {
+      console.log(`board[r][c] = ${board[r][c]}`);
       if (board[r][c] !== currentPlayer) {
+        console.log("rip");
         won = false;
         break;
+      } else {
+        console.log("ope?");
       }
     }
 
@@ -20,7 +45,11 @@ function checkWin(board: BoardState | BoardResult[][], row: number, col: number,
   for (let c = 0; c < col; c++) {
     for (let r = 0; r < row; r++) {
       if (board[r][c] !== currentPlayer) {
+        console.log("rip");
         won = false;
+        break;
+      } else {
+        console.log("ope?");
       }
     }
   }
@@ -31,8 +60,11 @@ function checkWin(board: BoardState | BoardResult[][], row: number, col: number,
   won = true;
   for (let i = 0; i < diagLen; i++) {
     if (board[i][i] !== currentPlayer) {
+      console.log("rip");
       won = false;
       break;
+    } else {
+      console.log("ope?");
     }
   }
 
@@ -44,6 +76,8 @@ function checkWin(board: BoardState | BoardResult[][], row: number, col: number,
     if (board[2 - i][2 - i] !== currentPlayer) {
       won = false;
       break;
+    } else {
+      console.log("ope?");
     }
   }
 
@@ -88,7 +122,7 @@ function handleClick(tileProps: ITile) {
 
   function setUtttBoardFn(): UtttBoard {
     // TODO: Maybe generalize this for some style points?
-    return utttBoard.map((array_of_boards: BoardState[], curr_Row) => {
+    const updatedUtttBoard: UtttBoard = utttBoard.map((array_of_boards: BoardState[], curr_Row) => {
       if (curr_Row != Row) {
         return array_of_boards;
       }
@@ -107,37 +141,43 @@ function handleClick(tileProps: ITile) {
             board_row.substring(0, col) +
             currentPlayer +
             board_row.substring(col + 1);
-          
 
           return new_row;
         });
       });
-    })
-  }
+    });
 
+    if (checkWin(updatedUtttBoard[Row][Col], currentPlayer)) {
+      console.log(`${currentPlayer} won in board (${Row}, ${Col})`);
+    }
+
+    return updatedUtttBoard;
+  }
 
   // Click is valid
   setUtttBoard(setUtttBoardFn);
 
   // See if board is full
 
+    setBoardResults(bR => {
+      const newbR: BoardResult[][] = bR.map((curr_row, r_idx) => curr_row.map((res, c_idx) => {
+        if (r_idx === Row && c_idx === Col) {
+          const { XWIN, OWIN } = BoardResult;
 
-  if (checkWin(utttBoard[Row][Col], row, col, currentPlayer)) {
-    setBoardResults(bR => bR.map((curr_row, r_idx) => curr_row.map((res, c_idx) => {
-      if (r_idx === Row && c_idx === Col) {
-        const { XWIN, OWIN } = BoardResult;
+          // Essentially casting Player into BoardResult
+          return currentPlayer === Player.X ? XWIN : OWIN;
+        }
+        
+        return res;
+      }));
 
-        // Essentially casting Player into BoardResult
-        return currentPlayer === Player.X ? XWIN : OWIN;
+      if (checkWin(newbR, currentPlayer)) {
+        console.log(currentPlayer + " won!");
       }
-      
-      return res;
-    })));
 
-    if (checkWin(boardResults, Row, Col, currentPlayer)) {
-      console.log(currentPlayer + " won!");
-    }
-  }
+      return newbR;
+    });
+    
 
   setCurrentPlayer(turn => (turn === Player.X ? Player.O : Player.X));
 
@@ -172,16 +212,4 @@ function handleClick(tileProps: ITile) {
       return res;
     })));
   }
-}
-
-export function Tile(tileProps: ITile) {
-  let {borders, children} = tileProps;
-  return (
-    <td
-      className={styles.td + " " + borders}
-      onClick={(_) => handleClick(tileProps)}
-    >
-      <div>{children}</div>
-    </td>
-  );
 }
