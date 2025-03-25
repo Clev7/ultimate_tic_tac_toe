@@ -1,3 +1,5 @@
+import { UtttBoard, BoardResult } from "@/types";
+
 export function initBoard(): UtttBoard {
   const [R, C, r, c] = [3, 3, 3, 3];
   const INIT_VAL: string = "___";
@@ -7,10 +9,4 @@ export function initBoard(): UtttBoard {
       Array.from({ length: r }, () => INIT_VAL)
     )
   );
-}
-
-export function initBoardResults(): BoardResult[][] {
-  const [R, C] = [3, 3];
-
-  return Array.from({ length: R }, () => Array.from({ length: C }, () => BoardResult.UNFINISHED))
 }

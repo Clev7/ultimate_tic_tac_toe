@@ -10,6 +10,8 @@ import {
   BoardResult,
   Player} from "@/types";
 
+import { initBoard, initBoardResults } from "@/utils/inits";
+
 
 
 export default function Home() {
