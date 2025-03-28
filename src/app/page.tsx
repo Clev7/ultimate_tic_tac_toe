@@ -86,16 +86,14 @@ export default function Game() {
               <tr key={Row}>
                 {boardArr.map((board: BoardState, Col) => {
 
-                  const boardProps: BoardProps = {
-                    Row,
-                    Col,
-                    board: utttBoard[Row][Col],
-                    makeMove: handleMakeMove
-                  }
-
                   return (
                     <td key={Col} className="board">
-                      <Board {...boardProps}/>
+                      <Board
+                        Row={Row}
+                        Col={Col}
+                        board={utttBoard[Row][Col]}
+                        makeMove={handleMakeMove}
+                      />
                     </td>
                   )
                 })}

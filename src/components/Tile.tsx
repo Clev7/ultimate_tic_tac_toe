@@ -1,5 +1,5 @@
 import styles from "@/app/tile.module.css";
-import { BoardResult, BoardState, TileProps, UtttBoard, Player} from "@/types";
+import { TileProps } from "@/types";
 
 export function Tile(tileProps: TileProps) {
   let {onClick, className, children} = tileProps;
