@@ -23,6 +23,7 @@ export default function Game() {
     // Should change the turn of the player
     console.log(`Row = ${Row}, Col = ${Col}, row = ${row}, col = ${col}`)
     const [focusedRow, focusedCol] = focusedBoard;
+    console.log(focusedBoard);
 
     if (focusedRow != -1 && focusedCol != -1
         && (focusedRow != Row || focusedCol != Col)
@@ -75,8 +76,9 @@ export default function Game() {
     }
 
     setCurrentPlayer(turn => (turn === Player.X ? Player.O : Player.X));
-    setFocusedBoard(utttbResults[row][col] !== BoardResult.UNFINISHED ? [2 - row, col]: [-1, -1]);
+    setFocusedBoard(utttbResults[row][col] === BoardResult.UNFINISHED ? [row, col]: [-1, -1]);
   }
+
   return (
     <div id="home">
       <table id="ultimateBoard">

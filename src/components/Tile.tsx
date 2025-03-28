@@ -9,7 +9,7 @@ export function Tile(tileProps: TileProps) {
       className={styles.td + " " + className}
       onClick={onClick}
     >
-      <div>{children}</div>
+      <div>{children === "_" ? " ": children}</div>
     </td>
   );
 }

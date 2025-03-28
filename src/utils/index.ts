@@ -43,17 +43,17 @@ function checkResultHelper(board: BoardState | BoardResult[][], currentPlayer: P
   const row = 3;
   const col = 3;
 
-  console.log(`currentPlayer = ${currentPlayer}`);
+  // console.log(`currentPlayer = ${currentPlayer}`);
   for (let r = 0; r < row; r++) {
     won = true;
     for (let c = 0; c < col; c++) {
-      console.log(`board[r][c] = ${board[r][c]}`);
+      // console.log(`board[r][c] = ${board[r][c]}`);
       if (board[r][c] !== currentPlayer) {
-        console.log("rip");
+        // console.log("rip");
         won = false;
         break;
       } else {
-        console.log("ope?");
+        // console.log("ope?");
       }
     }
 
@@ -64,11 +64,11 @@ function checkResultHelper(board: BoardState | BoardResult[][], currentPlayer: P
   for (let c = 0; c < col; c++) {
     for (let r = 0; r < row; r++) {
       if (board[r][c] !== currentPlayer) {
-        console.log("rip");
+        // console.log("rip");
         won = false;
         break;
       } else {
-        console.log("ope?");
+        // console.log("ope?");
       }
     }
   }
@@ -79,11 +79,11 @@ function checkResultHelper(board: BoardState | BoardResult[][], currentPlayer: P
   won = true;
   for (let i = 0; i < diagLen; i++) {
     if (board[i][i] !== currentPlayer) {
-      console.log("rip");
+      // console.log("rip");
       won = false;
       break;
     } else {
-      console.log("ope?");
+      // console.log("ope?");
     }
   }
 
@@ -96,7 +96,7 @@ function checkResultHelper(board: BoardState | BoardResult[][], currentPlayer: P
       won = false;
       break;
     } else {
-      console.log("ope?");
+      // console.log("ope?");
     }
   }
 
