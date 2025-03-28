@@ -1,5 +1,20 @@
 import { Board } from "@/components/Board";
-import { BoardState, BoardResult, Player } from "@/types";
+import { BoardState, BoardResult, Player, UtttBoard } from "@/types";
+
+export function computeUtttBoardResults(utttb: UtttBoard) {
+  let res = [];
+
+  for (let R = 0; R < utttb.length; R++) {
+    let row = [];
+    for (let C = 0; C < utttb.length; C++) {
+      row.push(checkResult(utttb[R][C]));
+    }
+
+    res.push(row);
+  }
+
+  return res;
+}
 
 export function checkResult(board: BoardState | BoardResult[][]): BoardResult {
   if (checkResultHelper(board, Player.X)) {
