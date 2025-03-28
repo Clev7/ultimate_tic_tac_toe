@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 export type UtttBoard = BoardState[][];
 export type BoardState = string[];
-export type BoardPosition = [Row: number, Col: number]
+
 export enum Player {
 	X = "X",
 	O = "O"
@@ -17,10 +17,13 @@ export enum BoardResult {
 
 export interface BoardProps {
 	board: BoardState,
-	makeMove: () => void
+	Row: number,
+	Col: number,
+	makeMove: (R: number, C: number, r: number, c: number) => void
 }
 
 export interface TileProps {
-	children: ReactNode,
 	onClick: () => void
+	className: string,
+	children: string,
 }

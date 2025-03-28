@@ -1,20 +1,15 @@
 import styles from "@/app/tile.module.css";
-import { BoardPosition, BoardResult, BoardState, TileProps, UtttBoard, Player} from "@/types";
+import { BoardResult, BoardState, TileProps, UtttBoard, Player} from "@/types";
 
 export function Tile(tileProps: TileProps) {
-  // let {borders, children, utttBoard, currentPlayer} = tileProps;
-
-  // if (checkWin(utttBoard, currentPlayer))
+  let {onClick, className, children} = tileProps;
 
   return (
     <td
-      className={styles.td + " " + borders}
-      onClick={() => handleClick(tileProps)}
+      className={styles.td + " " + className}
+      onClick={onClick}
     >
       <div>{children}</div>
     </td>
   );
 }
-
-
-

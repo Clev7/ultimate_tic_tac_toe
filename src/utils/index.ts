@@ -1,7 +1,28 @@
+import { Board } from "@/components/Board";
 import { BoardState, BoardResult, Player } from "@/types";
 
+export function checkResult(board: BoardState | BoardResult[][]): BoardResult {
+  if (checkResultHelper(board, Player.X)) {
+    return BoardResult.XWIN;
+  }
+
+  if (checkResultHelper(board, Player.O)) {
+    return BoardResult.OWIN;
+  }
+
+  for (let r = 0; r < board.length; r++) {
+    for (let c = 0; c < board[r].length; c++) {
+      if (board[r][c] === "_") {
+        return BoardResult.UNFINISHED;
+      }
+    }
+  }
+
+  return BoardResult.TIE;
+}
+
 // Can check either a single board or the whole UtttBoard
-export function checkWin(board: BoardState | BoardResult[][], currentPlayer: Player): boolean {
+function checkResultHelper(board: BoardState | BoardResult[][], currentPlayer: Player): boolean {
   let won = true;
 
   const row = 3;
@@ -65,4 +86,7 @@ export function checkWin(board: BoardState | BoardResult[][], currentPlayer: Pla
   }
 
   return false;
+}
+
+export function computeBoardResults(board: BoardState) {
 }
