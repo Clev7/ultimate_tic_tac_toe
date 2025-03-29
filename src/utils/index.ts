@@ -1,6 +1,6 @@
 import { BoardState, BoardResult, Player, UtttBoard } from "@/types";
 
-export function computeUtttBoardResults(utttb: UtttBoard) {
+export function computeUtttBoardResults(utttb: UtttBoard): BoardResult[][] {
   let res = [];
 
   for (let R = 0; R < utttb.length; R++) {
@@ -26,7 +26,7 @@ export function checkResult(board: BoardState | BoardResult[][]): BoardResult {
 
   for (let r = 0; r < board.length; r++) {
     for (let c = 0; c < board[r].length; c++) {
-      if (board[r][c] === "_") {
+      if (board[r][c] === "U") {
         return BoardResult.UNFINISHED;
       }
     }
