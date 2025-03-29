@@ -1,4 +1,3 @@
-import { Board } from "@/components/Board";
 import { BoardState, BoardResult, Player, UtttBoard } from "@/types";
 
 export function computeUtttBoardResults(utttb: UtttBoard) {
@@ -60,8 +59,8 @@ function checkResultHelper(board: BoardState | BoardResult[][], currentPlayer: P
     if (won) return true;
   }
 
-  won = true;
   for (let c = 0; c < col; c++) {
+    won = true;
     for (let r = 0; r < row; r++) {
       if (board[r][c] !== currentPlayer) {
         // console.log("rip");
@@ -71,9 +70,8 @@ function checkResultHelper(board: BoardState | BoardResult[][], currentPlayer: P
         // console.log("ope?");
       }
     }
+    if (won) return true;
   }
-
-  if (won) return true;
 
   const diagLen = 3;
   won = true;

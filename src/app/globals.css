@@ -35,6 +35,10 @@ a {
   text-decoration: none;
 }
 
+#message {
+  color: red;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
@@ -217,6 +221,7 @@ a.secondary {
 
 #home {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -236,3 +241,18 @@ a.secondary {
 .bb {
   border-bottom: 2px solid black;
 }
+
+.td {
+  background-color: blue;
+  padding: 0px;
+  width: 100px;
+  height: 100px;
+}
+
+.td > div {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 75px;
+}
+

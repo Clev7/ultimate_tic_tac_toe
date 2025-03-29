@@ -1,4 +1,3 @@
-import styles from "@/app/tile.module.css";
 import { TileProps } from "@/types";
 
 export function Tile(tileProps: TileProps) {
@@ -6,7 +5,7 @@ export function Tile(tileProps: TileProps) {
 
   return (
     <td
-      className={styles.td + " " + className}
+      className={"td " + className}
       onClick={onClick}
     >
       <div>{children === "_" ? " ": children}</div>

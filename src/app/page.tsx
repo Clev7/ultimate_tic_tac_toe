@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Board } from "@/components/Board";
 import {
-  BoardProps, 
   UtttBoard, 
   BoardState, 
   BoardResult,
@@ -11,32 +10,34 @@ import {
 } from "@/types";
 
 import { initBoard } from "@/utils/inits";
-import { computeUtttBoardResults } from "@/utils";
+import { checkResult, computeUtttBoardResults } from "@/utils";
 
 export default function Game() {
   const [utttBoard, setUtttBoard] = useState(initBoard());
   const [currentPlayer, setCurrentPlayer] = useState(Player.X);
   const [focusedBoard, setFocusedBoard] = useState([-1, -1]);
+  const [message, setMessage] = useState("");
 
   function handleMakeMove(Row: number, Col: number, row: number, col: number) {
     // Should update the board
     // Should change the turn of the player
-    console.log(`Row = ${Row}, Col = ${Col}, row = ${row}, col = ${col}`)
+    setMessage(`Row = ${Row}, Col = ${Col}, row = ${row}, col = ${col}`)
     const [focusedRow, focusedCol] = focusedBoard;
     console.log(focusedBoard);
 
     if (focusedRow != -1 && focusedCol != -1
         && (focusedRow != Row || focusedCol != Col)
     ) {
-      console.log("Current board not in focus");
+      // console.log("Current board not in focus");
       console.log(`Focused board: Row = ${focusedRow} Col = ${focusedCol}`)
+      setMessage("Curent board not in focus")
       return;
     }
 
     // Should be globally focused or the right board
     // Check if tile is empty
     if (utttBoard[Row][Col][row][col] !== "_") {
-      console.log("Tile already occupied");
+      ("Tile already occupied");
       return;
     }
 
@@ -69,10 +70,22 @@ export default function Game() {
 
     const utttbResults = computeUtttBoardResults(updatedUtttBoard);
 
+    const gameResult = checkResult(utttbResults);
+
+    if (gameResult === BoardResult.TIE) {
+      setMessage("The game is tied! Deadlock!");
+      return;
+    }
+
+    if (gameResult !== BoardResult.UNFINISHED) {
+      setMessage(`${gameResult} has won the whole game! Congratulations 👏👏👏`);
+      return;
+    }
+
     if (utttbResults[Row][Col] === BoardResult.TIE) {
-      console.log(`We have a tie in (${Row}, ${Col})`);
+      setMessage(`We have a tie in (${Row}, ${Col})`);
     } else if (utttbResults[Row][Col] !== BoardResult.UNFINISHED) {
-      console.log(`${utttbResults[Row][Col]} has won on board (${Row}, ${Col})`);
+      setMessage(`${utttbResults[Row][Col]} has won on board (${Row}, ${Col})`);
     }
 
     setCurrentPlayer(turn => (turn === Player.X ? Player.O : Player.X));
@@ -81,6 +94,9 @@ export default function Game() {
 
   return (
     <div id="home">
+      <div id="message">
+        {message}
+      </div>
       <table id="ultimateBoard">
         <tbody>
           {utttBoard.map((boardArr: BoardState[], Row) => {
