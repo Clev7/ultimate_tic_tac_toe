@@ -26,7 +26,7 @@ export function checkResult(board: BoardState | BoardResult[][]): BoardResult {
 
   for (let r = 0; r < board.length; r++) {
     for (let c = 0; c < board[r].length; c++) {
-      if (board[r][c] === "U") {
+      if (board[r][c] === BoardResult.UNFINISHED || board[r][c] === "_") {
         return BoardResult.UNFINISHED;
       }
     }
