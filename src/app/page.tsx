@@ -104,13 +104,16 @@ export default function Game() {
               <tr key={Row}>
                 {boardArr.map((board: BoardState, Col) => {
 
+                  const [fRow, fCol] = focusedBoard;
+
                   return (
-                    <td key={Col} className="board">
+                    <td key={Col} className="board-td">
                       <Board
                         Row={Row}
                         Col={Col}
                         board={utttBoard[Row][Col]}
                         makeMove={handleMakeMove}
+                        isFocused={Row == fRow && Col == fCol}
                       />
                     </td>
                   )

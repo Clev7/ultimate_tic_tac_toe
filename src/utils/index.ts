@@ -103,3 +103,7 @@ function checkResultHelper(board: BoardState | BoardResult[][], currentPlayer: P
 
 export function computeBoardResults(board: BoardState) {
 }
+
+export function join(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}

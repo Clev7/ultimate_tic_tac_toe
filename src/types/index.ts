@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 
 export type UtttBoard = BoardState[][];
 export type BoardState = string[];
@@ -19,11 +19,16 @@ export interface BoardProps {
 	board: BoardState,
 	Row: number,
 	Col: number,
-	makeMove: (R: number, C: number, r: number, c: number) => void
+	makeMove: (R: number, C: number, r: number, c: number) => void,
+	isFocused: boolean
 }
 
 export interface TileProps {
 	onClick: () => void
 	className: string,
-	children: string,
+	children: string | ReactNode,
+}
+
+export interface HighlightProps {
+	children: string
 }

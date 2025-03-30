@@ -1,5 +1,4 @@
 import { Tile } from "./Tile";
-import styles from "@/app/board.module.css";
 import { BoardProps } from "@/types";
 
 export function Board(boardProps: BoardProps) {
@@ -17,10 +16,10 @@ export function Board(boardProps: BoardProps) {
   }
 
 	return (
-		<table className={styles.board}>
+		<table className="board">
 			<tbody>
         {ordersProp.map((borderRow: string[], row) => {
-          let { board} = boardProps;
+          let { board, isFocused } = boardProps;
 
           return (
             <tr key={row}>
@@ -30,8 +29,8 @@ export function Board(boardProps: BoardProps) {
                 <Tile 
                   key={col} 
                   onClick={() => handleClick(row, col)} 
-                  className={borderCol}
-                  {...boardProps}>
+                  className={borderCol + " " + (isFocused ? "tile" : "tile-focused")}
+                  >
                   {board[row][col]}
                 </Tile>
               ))}
