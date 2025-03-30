@@ -29,7 +29,7 @@ export function Board(boardProps: BoardProps) {
                 <Tile 
                   key={col} 
                   onClick={() => handleClick(row, col)} 
-                  className={borderCol + " " + (isFocused ? "tile" : "tile-focused")}
+                  className={borderCol + " " + (isFocused ? "tile-focused" : "tile")}
                   >
                   {board[row][col]}
                 </Tile>

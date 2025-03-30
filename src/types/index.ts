@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactNode } from "react";
 
 export type UtttBoard = BoardState[][];
 export type BoardState = string[];

@@ -5,7 +5,7 @@ export function Tile(tileProps: TileProps) {
 
   return (
     <td
-      className={"td " + className}
+      className={"td"}
       onClick={onClick}
     >
       <div className="tile-container">
