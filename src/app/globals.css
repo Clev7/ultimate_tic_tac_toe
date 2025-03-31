@@ -257,7 +257,6 @@ a.secondary {
 }
 
 .board-td {
-  width: 100%;
   border-spacing: 0;
 }
 
@@ -303,7 +302,7 @@ a.secondary {
 .tile-focused {
   width: 90%;
   height: 90%;
-  background-color: gold;
+  background-color: goldenrod;
   animation: highlight 2s ease-in-out infinite;
   text-align: center;
   font-size: 75px;
