@@ -17,6 +17,7 @@ export default function Game() {
   const [currentPlayer, setCurrentPlayer] = useState(Player.X);
   const [focusedBoard, setFocusedBoard] = useState([-1, -1]);
   const [message, setMessage] = useState("");
+  // const [anim, setAnim] = useState("");
 
   function handleMakeMove(Row: number, Col: number, row: number, col: number) {
     // Should update the board
@@ -109,7 +110,7 @@ export default function Game() {
                   isFocused ||= (Row == fRow && Col == fCol);
 
                   return (
-                    <td key={Col} className="board-td">
+                    <td key={Col} className={isFocused ? "board-td board-focused" : "board-td"}>
                       <Board
                         Row={Row}
                         Col={Col}
