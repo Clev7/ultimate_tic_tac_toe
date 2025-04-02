@@ -24,7 +24,7 @@ export interface BoardProps {
 }
 
 export interface TileProps {
-	onClick: () => void
+	onClick: () => void,
 	className: string,
 	children: string | ReactNode,
 }
