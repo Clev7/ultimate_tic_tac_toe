@@ -2,7 +2,7 @@
   --background: #ffffff;
   --foreground: #171717;
   --hover-color: rgba(30, 255, 0, 0.829);
-  --highlight-color: 218, 165, 32;
+  --pulse-color: 218, 165, 32;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -216,6 +216,8 @@ a.secondary {
   }
 }
 
+/* --------------------------------------- */
+
 #ultimateBoard {
   width: 50%;
   height: 50%;
@@ -274,18 +276,18 @@ a.secondary {
   align-items: center;
 }
 
-@keyframes highlight {
+@keyframes pulse {
   0% {
-    background-color: rgba(var(--highlight-color), 0.5);
+    background-color: rgba(var(--pulse-color), 0.5);
   }
 
   50% {
-    background-color: rgba(var(--highlight-color), 1);
+    background-color: rgba(var(--pulse-color), 1);
 
   }
 
   100% {
-    background-color: rgba(var(--highlight-color), 0.5);
+    background-color: rgba(var(--pulse-color), 0.5);
   }
 }
 
@@ -304,13 +306,22 @@ a.secondary {
   background-color: var(--hover-color);
 }
 
-.board-focused:hover {
-  .tile-focused {
-    width: 100%;
-    height: 100%;
-    background-color: var(--hover-color);
-    animation: none;
+
+#ultimateBoard:has(.tile-focused:hover) {
+  .board-focused {
+      /* Set the other */
+      .tile-focused {
+          animation-play-state: paused;
+          background-color: rgba(var(--pulse-color), 1);
+      }
   }
+}
+
+.tile-focused:hover {
+  width: 100%;
+  height: 100%;
+  background-color: var(--hover-color);
+  animation-play-state: paused;
 }
 
 .tile-focused {
@@ -321,5 +332,6 @@ a.secondary {
   font-size: 75px;
   border: 3px solid black;
   border-radius: 15%;
-  animation: highlight 5s ease-in-out infinite;
+  animation: pulse 5s ease-in-out infinite;
+  animation-play-state: running;
 }

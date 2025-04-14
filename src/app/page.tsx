@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { Board } from "@/components/Board";
 import {
-  UtttBoard, 
-  BoardState, 
+  UtttBoard,
+  BoardState,
   BoardResult,
   Player
 } from "@/types";
@@ -114,7 +114,7 @@ export default function Game() {
                       <Board
                         Row={Row}
                         Col={Col}
-                        board={utttBoard[Row][Col]}
+                        board={board}
                         makeMove={handleMakeMove}
                         isFocused={isFocused}
                       />
