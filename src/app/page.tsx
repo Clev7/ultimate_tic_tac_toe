@@ -2,15 +2,11 @@
 
 import { useState } from "react";
 import { Board } from "@/components/Board";
-import {
-  UtttBoard,
-  BoardState,
-  BoardResult,
-  Player
-} from "@/types";
+import { UtttBoard, BoardState, BoardResult, Player } from "@/types";
 
 import { initBoard } from "@/utils/inits";
 import { checkResult, computeUtttBoardResults } from "@/utils";
+import { ChessClock } from "@/components/ChessClock";
 
 export default function Game() {
   const [utttBoard, setUtttBoard] = useState(initBoard());
@@ -22,16 +18,14 @@ export default function Game() {
   function handleMakeMove(Row: number, Col: number, row: number, col: number) {
     // Should update the board
     // Should change the turn of the player
-    setMessage(`Row = ${Row}, Col = ${Col}, row = ${row}, col = ${col}`)
+    setMessage(`Row = ${Row}, Col = ${Col}, row = ${row}, col = ${col}`);
     const [focusedRow, focusedCol] = focusedBoard;
     console.log(focusedBoard);
 
-    if (focusedRow != -1 && focusedCol != -1
-        && (focusedRow != Row || focusedCol != Col)
-    ) {
+    if (focusedRow != -1 && focusedCol != -1 && (focusedRow != Row || focusedCol != Col)) {
       // console.log("Current board not in focus");
-      console.log(`Focused board: Row = ${focusedRow} Col = ${focusedCol}`)
-      setMessage("Curent board not in focus")
+      console.log(`Focused board: Row = ${focusedRow} Col = ${focusedCol}`);
+      setMessage("Curent board not in focus");
       return;
     }
 
@@ -58,9 +52,7 @@ export default function Game() {
           }
 
           const new_row: string =
-            board_row.substring(0, col) +
-            currentPlayer +
-            board_row.substring(col + 1);
+            board_row.substring(0, col) + currentPlayer + board_row.substring(col + 1);
 
           return new_row;
         });
@@ -89,25 +81,22 @@ export default function Game() {
       setMessage(`${utttbResults[Row][Col]} has won on board (${Row}, ${Col})`);
     }
 
-    setCurrentPlayer(turn => (turn === Player.X ? Player.O : Player.X));
-    setFocusedBoard(utttbResults[row][col] === BoardResult.UNFINISHED ? [row, col]: [-1, -1]);
+    setCurrentPlayer((turn) => (turn === Player.X ? Player.O : Player.X));
+    setFocusedBoard(utttbResults[row][col] === BoardResult.UNFINISHED ? [row, col] : [-1, -1]);
   }
 
   return (
     <div id="home">
-      <div id="message">
-        {message}
-      </div>
+      <div id="message">{message}</div>
       <table id="ultimateBoard">
         <tbody>
           {utttBoard.map((boardArr: BoardState[], Row) => {
             return (
               <tr key={Row}>
                 {boardArr.map((board: BoardState, Col) => {
-
                   const [fRow, fCol] = focusedBoard;
-                  let isFocused = (fRow == -1 && fCol == -1);
-                  isFocused ||= (Row == fRow && Col == fCol);
+                  let isFocused = fRow == -1 && fCol == -1;
+                  isFocused ||= Row == fRow && Col == fCol;
 
                   return (
                     <td key={Col} className={isFocused ? "board-td board-focused" : "board-td"}>
@@ -119,10 +108,10 @@ export default function Game() {
                         isFocused={isFocused}
                       />
                     </td>
-                  )
+                  );
                 })}
               </tr>
-              )
+            );
           })}
         </tbody>
       </table>

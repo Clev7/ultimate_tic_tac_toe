@@ -309,7 +309,6 @@ a.secondary {
 
 #ultimateBoard:has(.tile-focused:hover) {
   .board-focused {
-      /* Set the other */
       .tile-focused {
           animation-play-state: paused;
           background-color: rgba(var(--pulse-color), 1);

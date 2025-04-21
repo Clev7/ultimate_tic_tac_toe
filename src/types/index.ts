@@ -32,3 +32,11 @@ export interface TileProps {
 export interface HighlightProps {
 	children: string
 }
+
+export interface ChessClockProps {
+  turn: string,
+  p1StartTime: string,
+  p2StartTime: string,
+  delay?: number,
+  increment?: number,
+}
