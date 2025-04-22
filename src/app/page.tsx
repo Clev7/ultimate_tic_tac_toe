@@ -6,10 +6,11 @@ import { UtttBoard, BoardState, BoardResult, Player } from "@/types";
 
 import { initBoard } from "@/utils/inits";
 import { checkResult, computeUtttBoardResults } from "@/utils";
+import { useTurn } from "@/hooks/useTurn";
 
 export default function Game() {
   const [utttBoard, setUtttBoard] = useState(initBoard());
-  const [currentPlayer, setCurrentPlayer] = useState(Player.X);
+  const [currentPlayer, toggleCurrentPlayer] = useTurn(Player.X, Player.O);
   const [focusedBoard, setFocusedBoard] = useState([-1, -1]);
   const [message, setMessage] = useState("");
   // const [anim, setAnim] = useState("");
@@ -80,8 +81,8 @@ export default function Game() {
       setMessage(`${utttbResults[Row][Col]} has won on board (${Row}, ${Col})`);
     }
 
-    setCurrentPlayer((turn) => (turn === Player.X ? Player.O : Player.X));
-    setFocusedBoard(utttbResults[row][col] === BoardResult.UNFINISHED ? [row, col] : [-1, -1]);
+    toggleCurrentPlayer();
+    setFocusedBoard(utttbResults[row][col] === BoardResult.UNFINISHED ? [row, col]: [-1, -1]);
   }
 
   return (
