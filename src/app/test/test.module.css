@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.label {
+  font-size: 50px;
+  margin: 100px;
+  background-color: green;
+  padding: 10px;
+}
+
+#turnButton {
+  font-size: 50px;
+  padding: 5px;
+}
+
+#playerAnnouncer {
+  font: 50px red;
+}

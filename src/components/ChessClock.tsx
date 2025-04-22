@@ -39,22 +39,6 @@ const getSeconds = ({ hours, minutes, seconds }: Result): number => {
 
 const getHMS = (seconds: number) => {};
 
-const useChessClock = (p1StartSeconds: number, p2StartSeconds: number, turn: Player) => {
-  const [{ p1Time, p2Time }, setTime] = useState({
-    p1Time: p1StartSeconds,
-    p2Time: p2StartSeconds,
-  });
-
-  const togglePause = () => {};
-  const resetGame = () => {
-    setTime({ p1Time: p1StartSeconds, p2Time: p2StartSeconds });
-  };
-
-
-
-  return [{ p1Time, p2time }, {}]
-};
-
 export function ChessClock(props: ChessClockProps) {
   let { p1StartTime, p2StartTime, delay, increment } = props;
 

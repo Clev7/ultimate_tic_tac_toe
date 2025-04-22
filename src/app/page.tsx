@@ -6,7 +6,6 @@ import { UtttBoard, BoardState, BoardResult, Player } from "@/types";
 
 import { initBoard } from "@/utils/inits";
 import { checkResult, computeUtttBoardResults } from "@/utils";
-import { ChessClock } from "@/components/ChessClock";
 
 export default function Game() {
   const [utttBoard, setUtttBoard] = useState(initBoard());
