@@ -1,10 +1,16 @@
+export interface Timer {
+  toggleTimer: () => void;
+  getTime: () => number;
+  resetTimer: () => void;
+}
+
 export function init(initTimeInSeconds: number) {
   let startTime: number | null = null;
   let pauseStamp: number | null = null;
   let totalPauseTime = 0;
   let mode = "PENDING";
 
-  function toggleTimer() {
+  function toggleTimer(): void {
     if (mode === "TIMEOUT") return;
 
     // PENDING: About to start or unpause the timer
@@ -32,10 +38,13 @@ export function init(initTimeInSeconds: number) {
     return Date.now() - startTime + totalPauseTime;
   }
 
-  function passTurn(): void {
-    if (startTime == null) {
-      console.log("Game hasn't started yet");
-      return;
-    }
+  function resetTimer(): void {
+    console.log("Resetting timer");
+    startTime = null;
+    pauseStamp = null;
+    totalPauseTime = 0;
+    mode = "PENDING";
   }
+
+  return { toggleTimer, getTime, resetTimer } as Timer;
 }
