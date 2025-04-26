@@ -30,10 +30,19 @@ export function init(initTimeInSeconds: number) {
     }
   }
 
+  // Using closures in this way
+  // performs the binding more explicitly
+  // than using something like "this",
+  // whose value can only ever be found out at runtime
+  // since functions can't actually be "owned" in Javascript.
+  //
+  // You could technically use classes too.
   function getTime(): number {
     if (startTime == null) {
       return -1;
     }
+
+    console.log("startTime is " + startTime);
 
     return Date.now() - startTime + totalPauseTime;
   }
@@ -48,3 +57,17 @@ export function init(initTimeInSeconds: number) {
 
   return { toggleTimer, getTime, resetTimer } as Timer;
 }
+
+const timer: Timer = init(3000);
+timer.toggleTimer();
+
+const otherTimer: Timer = init(1000);
+
+const timerGet = timer.getTime;
+
+setTimeout(() => {}, 1000);
+
+let startTime = 50;
+(() => {
+  timerGet();
+})()

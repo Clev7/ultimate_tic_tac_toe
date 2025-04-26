@@ -1,4 +1,4 @@
-import { init as initTimer, Timer } from "./timerWriteup";
+import { init as initTimer, Timer } from "./Timer";
 
 export enum Turn {
   P1 = "Player 1",
