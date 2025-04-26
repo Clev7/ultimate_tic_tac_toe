@@ -5,7 +5,7 @@ export enum Turn {
   P2 = "Player 2",
 }
 
-export interface ChessClock {
+interface ChessClock {
   // We're assuming timer1 goes first
   timer1: Timer;
   timer2: Timer;
@@ -30,7 +30,7 @@ export function startClock(chessClock: ChessClock) {
 }
 
 export function passTurn(chessClock: ChessClock) {
-  const { timer1, timer2, turn } = chessClock;
+  const { timer1, timer2 } = chessClock;
 
   timer1.toggleTimer();
   timer2.toggleTimer();
