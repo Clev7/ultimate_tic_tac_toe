@@ -82,7 +82,7 @@ export default function Game() {
     }
 
     toggleCurrentPlayer();
-    setFocusedBoard(utttbResults[row][col] === BoardResult.UNFINISHED ? [row, col]: [-1, -1]);
+    setFocusedBoard(utttbResults[row][col] === BoardResult.UNFINISHED ? [row, col] : [-1, -1]);
   }
 
   return (

@@ -40,3 +40,10 @@ export interface ChessClockProps {
   delay?: number,
   increment?: number,
 }
+
+export enum ClockState {
+  PENDING = "Pending",
+  IN_PROGRESS = "In progress",
+  PAUSED = "Paused",
+}
+

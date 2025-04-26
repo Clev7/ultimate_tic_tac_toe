@@ -1,5 +1,5 @@
 .container {
-  display: flex;
+
   flex-direction: column;
   width: 100vw;
   height: 100vh;
@@ -22,4 +22,9 @@
 
 #playerAnnouncer {
   font: 50px red;
+}
+
+#togglePauseButton {
+  font-size: 50px;
+  padding: 5px;
 }

@@ -16,3 +16,10 @@ need to vote to make it happen? possibly.
 
 Let me think. Probably store a variable timeElapsed and then whenever a pause happens, record
 the pause timestamp. after the unpause, do timeElapsed = Date.now() - startTime + (Date.now() - pauseTime)
+
+1. startGame (start button is clicked)
+2. store startTime
+3. initialize pauseTime to null
+4. pause button is clicked and the pauseTime is recorded using Date.now()
+5. button is clicked again for unpausing
+
