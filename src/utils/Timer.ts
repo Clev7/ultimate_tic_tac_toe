@@ -57,17 +57,3 @@ export function init(initTimeInSeconds: number) {
 
   return { toggleTimer, getTime, resetTimer } as Timer;
 }
-
-const timer: Timer = init(3000);
-timer.toggleTimer();
-
-const otherTimer: Timer = init(1000);
-
-const timerGet = timer.getTime;
-
-setTimeout(() => {}, 1000);
-
-let startTime = 50;
-(() => {
-  timerGet();
-})()
