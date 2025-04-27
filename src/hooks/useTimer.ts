@@ -1,19 +1,5 @@
 import { useState } from "react";
-
-// frame rendered individually.
-enum TimerMode {
-  PENDING = "Pending",
-  TIMEOUT = "Timeout",
-  IN_PROGRESS = "In Progress",
-}
-
-interface Timer {
-  startStamp: number | null;
-  pauseStamp: number | null;
-  totalPauseTime: number;
-  mode: TimerMode;
-  initTime: number;
-}
+import { TimerMode, Timer } from "@/types/Timer";
 
 export function useTimer(initTimeInSeconds: number) {
   let [timer, setTimer] = useState({
@@ -26,7 +12,9 @@ export function useTimer(initTimeInSeconds: number) {
 
   // I think this needs to be converted into a useRef or a useMemo.
   // hmmmm which one?
-  function getTime(timer: Timer): number {
+  //
+  // Apparently neither according to someone on discord
+  function getTime(): number {
     if (timer.startStamp == null) {
       return -1;
     }
@@ -66,7 +54,7 @@ export function useTimer(initTimeInSeconds: number) {
   }
 
 
-  function resetTimer(timer: Timer): void {
+  function resetTimer(): void {
     setTimer(timer => {
       let res: Timer = structuredClone(timer);
       res.startStamp = null;
@@ -77,4 +65,6 @@ export function useTimer(initTimeInSeconds: number) {
       return res;
     })
   }
+
+  return [timer, setTimer, toggleTimer, resetTimer, getTime]
 }
