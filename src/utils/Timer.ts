@@ -1,4 +1,4 @@
-export interface Timer {
+interface Timer {
   toggleTimer: () => void;
   getTime: () => number;
   resetTimer: () => void;
