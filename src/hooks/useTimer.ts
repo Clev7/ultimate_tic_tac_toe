@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { TimerMode, Timer } from "@/types/Timer";
+import { TimerMode, Timer, TimerData } from "@/types/Timer";
 
-export function useTimer(initTimeInSeconds: number) {
-  let [timer, setTimer] = useState({
+// TODO: Implement increments and delays
+export function useTimer(initTimeInSeconds: number): Timer {
+  const { TIMEOUT, IN_PROGRESS, PENDING } = TimerMode;
+
+  const [timer, setTimer] = useState({
     startStamp: null,
     pauseStamp: null,
     totalPauseTime: 0,
-    mode: TimerMode.PENDING,
+    mode: PENDING,
     initTime: initTimeInSeconds,
-  } as Timer); // You need the cast otherwise your keys are no longer nullable
+  } as TimerData); // You need the cast otherwise your keys are no longer nullable
 
   // I think this needs to be converted into a useRef or a useMemo.
   // hmmmm which one?
@@ -24,47 +27,77 @@ export function useTimer(initTimeInSeconds: number) {
     return Date.now() - timer.startStamp + timer.totalPauseTime;
   }
 
-  function toggleTimer() {
-    setTimer(timer => {
-      if (timer.mode === TimerMode.TIMEOUT) {
+  function start() {
+    setTimer((timer) => {
+      if (timer.mode === TIMEOUT) {
         console.log("Timer already timed out");
         return timer;
       }
 
-      // Deep clones the timer
-      let res: Timer = structuredClone(timer);
-
-      // PENDING: About to start or unpause the timer
-      if (timer.mode === TimerMode.PENDING) {
-        if (timer.startStamp == null) {
-          res.startStamp = Date.now();
-        } else {
-          res.totalPauseTime += Date.now() - res.pauseStamp!;
-          // pauseStamp is now stale. Set to null
-          res.pauseStamp = null;
-        }
-        res.mode = TimerMode.IN_PROGRESS;
-      } else {
-        res.pauseStamp = Date.now();
+      if (timer.mode === IN_PROGRESS) {
+        console.log("Timer already started");
+        return timer;
       }
 
-      return res;
+      let res: TimerData = structuredClone(timer);
 
-    })
+      res.startStamp = Date.now();
+      res.mode = IN_PROGRESS;
+      return res;
+    });
   }
 
+  function stop() {
+    setTimer((timer) => {
+      if (timer.mode === TIMEOUT) {
+        console.log("Timer already timed out");
+        return timer;
+      }
+
+      if (timer.mode === PENDING) {
+        console.log("Timer is not currently counting down");
+        return timer;
+      }
+
+      let res: TimerData = structuredClone(timer);
+
+      res.pauseStamp = Date.now();
+      return res;
+    });
+  }
 
   function resetTimer(): void {
-    setTimer(timer => {
-      let res: Timer = structuredClone(timer);
+    setTimer((timer) => {
+      let res: TimerData = structuredClone(timer);
       res.startStamp = null;
       res.pauseStamp = null;
       res.totalPauseTime = 0;
-      res.mode = TimerMode.PENDING;
+      res.mode = PENDING;
 
       return res;
-    })
+    });
   }
 
-  return [timer, setTimer, toggleTimer, resetTimer, getTime]
+  function addTime(time: number): void {
+    setTimer((timer) => {
+      let res: TimerData = structuredClone(timer);
+
+      if (res.startStamp == null) {
+        res.initTime += time;
+        return res;
+      }
+
+      res.startStamp -= 5;
+      return res;
+    });
+  }
+
+  return {
+    data: timer,
+    start,
+    stop,
+    resetTimer,
+    getTime,
+    addTime,
+  };
 }
