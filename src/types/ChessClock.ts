@@ -20,14 +20,14 @@ export interface ChessClockData {
   p2Timer: Timer,
   increment?: number,
   delay?: number,
-  currentPlayer: Player,
+  turn: Player,
   mode: ChessClockMode
 }
 
 export interface ChessClock {
   data: ChessClockData,
-  startClock: () => void;
-  pauseClock: () => void;
-  resetClock: () => void;
+  start: () => void;
+  stop: () => void;
+  reset: () => void;
   passTurn: () => void;
 }

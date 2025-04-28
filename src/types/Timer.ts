@@ -16,9 +16,9 @@ export interface TimerData {
 export interface Timer {
   data: TimerData,
   getTime: () => number,
+  addTime: (time: number) => void,
   start: () => void,
   stop: () => void,
-  addTime: (time: number) => void,
-  resetTimer: () => void
+  reset: () => void
 }
 
