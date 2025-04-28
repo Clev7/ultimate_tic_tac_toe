@@ -5,10 +5,20 @@ export enum TimerMode {
   IN_PROGRESS = "In Progress",
 }
 
-export interface Timer {
+export interface TimerData {
   startStamp: number | null;
   pauseStamp: number | null;
   totalPauseTime: number;
   mode: TimerMode;
   initTime: number;
 }
+
+export interface Timer {
+  data: TimerData,
+  getTime: () => number,
+  start: () => void,
+  stop: () => void,
+  addTime: (time: number) => void,
+  resetTimer: () => void
+}
+
