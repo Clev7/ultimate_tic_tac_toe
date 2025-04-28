@@ -1,30 +1,39 @@
-import { ChessClockProps, ClockState, Player } from "@/types";
-import { getSeconds, getTime } from "@/utils/ChessClock";
-import { useEffect, useState } from "react";
-
-const getHMS = (seconds: number) => {};
+import { ChessClockProps, Player } from "@/types";
+import * as time from "@/utils/time";
+import { useState } from "react";
 
 export function ChessClock(props: ChessClockProps) {
-  let { p1StartTime, p2StartTime, delay, increment } = props;
+  const { p1Time, p2Time, delay, increment, mode, onError } = props;
 
-  const [chessClockState, setChessClockState] = useState(ClockState.PENDING);
+  const p1ParsedTime = time.parseTime(p1Time);
 
-  const startTime = useRef(Date.now());
-
-  let p1Time = getTime(p1StartTime);
-  let p2Time = getTime(p2StartTime);
-
-  if (p1Time == null) {
+  if (p1ParsedTime == null) {
+    onError("Invalid time for Player 1");
+    return;
   }
 
-  let p1TotalSeconds = getSeconds(p1Time);
-  let p2TotalSeconds = getSeconds(p2Time);
+  const p2ParsedTime = p2Time ? time.parseTime(p2Time) : p1ParsedTime;
+
+  if (p2ParsedTime == null) {
+    onError("Invalid time for Player 2");
+    return;
+  }
+
+  // Just for testing for now. Later on we can think
+  // of some more complex UI logic
+  const p1TotalSeconds = time.getSeconds(p1ParsedTime);
+  const p2TotalSeconds = time.getSeconds(p2ParsedTime);
 
   return (
     <div>
-      Hi There!
-      <div></div>
-      <div></div>
+      Chess Clock
+      <div>{p1TotalSeconds}</div>
+      <div>{p2TotalSeconds}</div>
+      <div>
+        Increment: {increment}
+        <br />
+        Delay: {delay}
+      </div>
     </div>
   );
 }

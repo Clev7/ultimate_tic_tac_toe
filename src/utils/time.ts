@@ -4,7 +4,7 @@ interface Result {
   seconds: number;
 }
 
-export const getTime = (time: string): Result | null => {
+export const parseTime = (time: string): Result | null => {
   const regex =
     /(?=.*(?:^\d{1,2}(?:h|m|s)))^(?:(?<hours>\d{1,2})h)? ?(?:(?<minutes>\d{1,2})m)? ?(?:(?<seconds>\d{1,2})s)?$/gm;
 
@@ -32,4 +32,12 @@ export const getTime = (time: string): Result | null => {
 
 export const getSeconds = ({ hours, minutes, seconds }: Result): number => {
   return hours * 3600 + minutes * 60 + seconds;
+};
+
+export const getHMS = (totalSeconds: number) => {
+  const hours = totalSeconds / 3600;
+  const minutes = totalSeconds / 60;
+  const seconds = totalSeconds % 3600;
+
+  return [hours, minutes, seconds];
 };

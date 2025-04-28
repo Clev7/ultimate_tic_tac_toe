@@ -9,9 +9,6 @@ import { useState } from "react";
 import { ChessClock } from "@/components/ChessClock";
 
 export default function App() {
-  // const [{ p1Time, p2Time }, funcs] = useChessClock();
-  const [turn, toggleTurn] = useTurn(Player.X, Player.O);
-  const [clockState, setClockState] = useState(ClockState.PENDING);
 
   return (
     <div className={styles.container}>
