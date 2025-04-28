@@ -17,7 +17,7 @@ export function useChessClock(
   // Allows for one value to be passed instead
   const p2Timer = useTimer(p2InitTime ?? p1InitTime);
 
-  const [currentPlayer, toggleCurrentPlayer] = useTurn(Player.X, Player.O);
+  const [turn, toggleTurn] = useTurn(Player.X, Player.O);
   const [mode, setMode] = useState(NOT_STARTED);
 
   // Not sure if I'll need this, but I might as well have them around here
@@ -29,36 +29,82 @@ export function useChessClock(
     p2Timer,
     increment,
     delay,
-    currentPlayer: turn,
+    turn,
     mode,
   };
 
-  function startClock() {
-    if (chessClock.mode != NOT_STARTED) {
-      console.log("Invalid mode");
-      return chessClock;
+  function start(): void {
+    if (mode != NOT_STARTED) {
+      console.log("Invalid mode: " + mode);
+      return;
     }
 
     // Apply delay if there is one
     setTimeout(() => {
-      let res: ChessClockData = structuredClone(chessClock);
-      res.p1Timer.start();
-      return res;
+      p1Timer.start();
+      setMode(IN_PROGRESS);
     }, delay ?? 0);
-
-    return res;
   }
 
-  function pauseClock() {
+  function stop() {
+    if (mode != IN_PROGRESS) {
+      console.log("Invalid mode: " + mode);
+      return;
+    }
 
+    p1Timer.stop();
+    p2Timer.stop();
+
+    setMode(PAUSED);
   }
 
-  function resetClock() {}
+  function reset() {
+    if (mode == NOT_STARTED) {
+      console.log("Clock should be already reset");
+      return;
+    }
+
+    if (mode == IN_PROGRESS) {
+      console.log("You must pause the game first before resetting the clock");
+      return;
+    }
+
+    // Paused or someone timed out
+    p1Timer.reset();
+    p2Timer.reset();
+
+    if (turn === Player.O) toggleTurn();
+
+    setMode(NOT_STARTED);
+  }
+
   function passTurn() {
+    if (mode != IN_PROGRESS) {
+      console.log("Invalid mode: " + mode);
+      return;
+    }
+
+    if (turn === Player.X) {
+      p1Timer.stop();
+      p2Timer.addTime(increment);
+      p2Timer.start();
+    } else {
+      p2Timer.stop();
+      p1Timer.addTime(increment);
+      p1Timer.start();
+    }
+  }
+
+  function getTimes(): [number, number] {
+    return [p1Timer.getTime(), p2Timer.getTime()]
   }
 
   return {
     data: chessClock,
-    pauseClock
-  }
+    start,
+    stop,
+    reset,
+    passTurn,
+    getTimes
+  };
 }

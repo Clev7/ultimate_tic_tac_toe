@@ -19,12 +19,23 @@ export function useTimer(initTimeInSeconds: number): Timer {
   // Apparently neither according to someone on discord
   function getTime(): number {
     if (timer.startStamp == null) {
+      console.log("Invalid start stamp");
       return -1;
     }
 
     console.log("startStamp is " + timer.startStamp);
 
-    return Date.now() - timer.startStamp + timer.totalPauseTime;
+    let time: number = Date.now() - timer.startStamp + timer.totalPauseTime;
+
+    if (time >= timer.initTime) {
+      setTimer((t) => {
+        let res = structuredClone(t);
+        res.mode = TIMEOUT;
+        return res;
+      })
+    }
+
+    return time;
   }
 
   function start() {
@@ -66,7 +77,12 @@ export function useTimer(initTimeInSeconds: number): Timer {
     });
   }
 
-  function resetTimer(): void {
+  function reset(): void {
+    if (timer.mode === IN_PROGRESS) {
+      console.log("You must first pause the timer before resetting it");
+      return;
+    }
+
     setTimer((timer) => {
       let res: TimerData = structuredClone(timer);
       res.startStamp = null;
@@ -79,6 +95,11 @@ export function useTimer(initTimeInSeconds: number): Timer {
   }
 
   function addTime(time: number): void {
+    if (timer.mode === TIMEOUT) {
+      console.log("The timer has already reached 0");
+      return;
+    }
+
     setTimer((timer) => {
       let res: TimerData = structuredClone(timer);
 
@@ -96,7 +117,7 @@ export function useTimer(initTimeInSeconds: number): Timer {
     data: timer,
     start,
     stop,
-    resetTimer,
+    reset,
     getTime,
     addTime,
   };
