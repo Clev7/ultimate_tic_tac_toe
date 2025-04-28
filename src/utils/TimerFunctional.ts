@@ -8,13 +8,13 @@ enum TimerMode {
   IN_PROGRESS = "In Progress",
 }
 
-interface Timer {
-  startStamp: number | null;
-  pauseStamp: number | null;
-  totalPauseTime: number;
-  mode: TimerMode;
-  initTime: number;
-}
+// interface Timer {
+//   startStamp: number | null;
+//   pauseStamp: number | null;
+//   totalPauseTime: number;
+//   mode: TimerMode;
+//   initTime: number;
+// }
 
 export function initTimer(initTimeInSeconds: number): Timer {
   return {

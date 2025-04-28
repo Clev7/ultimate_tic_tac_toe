@@ -1,8 +1,8 @@
-interface Timer {
-  toggleTimer: () => void;
-  getTime: () => number;
-  resetTimer: () => void;
-}
+// interface Timer {
+//   toggleTimer: () => void;
+//   getTime: () => number;
+//   resetTimer: () => void;
+// }
 
 export function init(initTimeInSeconds: number) {
   let startTime: number | null = null;

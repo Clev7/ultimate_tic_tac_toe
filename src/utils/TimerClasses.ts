@@ -1,8 +1,8 @@
-export interface Timer {
-  toggleTimer: () => void;
-  getTime: () => number;
-  resetTimer: () => void;
-}
+// interface Timer {
+//   toggleTimer: () => void;
+//   getTime: () => number;
+//   resetTimer: () => void;
+// }
 
 class ChessClock {
   // # means private
