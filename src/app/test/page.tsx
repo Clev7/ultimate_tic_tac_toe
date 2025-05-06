@@ -22,7 +22,7 @@ const ClockForm = ({ formState, handleChange, onSubmit }: ClockFormProps) => {
         placeholder="Player 1 Time"
         value={formState.p1Time}
         onChange={handleChange}
-        className="input"
+        className={styles.input}
       />
 
       <input
@@ -30,6 +30,7 @@ const ClockForm = ({ formState, handleChange, onSubmit }: ClockFormProps) => {
         placeholder="Player 2 Time"
         value={formState.p2Time}
         onChange={handleChange}
+        className={styles.input}
       />
 
       <input
@@ -37,8 +38,15 @@ const ClockForm = ({ formState, handleChange, onSubmit }: ClockFormProps) => {
         placeholder="increment"
         value={formState.increment}
         onChange={handleChange}
+        className={styles.input}
       />
-      <input name="delay" placeholder="delay" value={formState.delay} onChange={handleChange} />
+      <input
+        name="delay"
+        placeholder="delay"
+        value={formState.delay}
+        onChange={handleChange}
+        className={styles.input}
+      />
       <button type="submit" onClick={onSubmit}>
         Save Configuration
       </button>
@@ -67,19 +75,19 @@ export default function App() {
 
   return (
     <div id={styles.testContainer}>
-      {showForm &&
+      {showForm && (
         <ClockForm
           formState={formState}
           handleChange={handleChange}
           onSubmit={() => {
-            setShowForm(!showForm)
+            setShowForm(!showForm);
 
-            chessClock = useChessClock(formState)
+            chessClock = useChessClock(formState);
           }}
         />
-      }
+      )}
 
-      {!showForm && <ChessClock {...chessClock!.data}/>}
+      {!showForm && <ChessClock {...chessClock!.data} />}
     </div>
   );
 }
