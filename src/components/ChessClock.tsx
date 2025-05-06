@@ -1,9 +1,10 @@
 import { ChessClockProps, Player } from "@/types";
 import * as time from "@/utils/time";
 import { useState } from "react";
+import styles from "@/styles/chessclock.module.css";
 
 export function ChessClock(props: ChessClockProps) {
-  const { p1Time, p2Time, delay, increment, mode, onError } = props;
+  const { p1Time, p2Time, delay, turn, increment, mode, onError, passTurn} = props;
 
   const p1ParsedTime = time.parseTime(p1Time);
 
@@ -25,15 +26,16 @@ export function ChessClock(props: ChessClockProps) {
   const p2TotalSeconds = time.getSeconds(p2ParsedTime);
 
   return (
-    <div>
-      Chess Clock
-      <div>{p1TotalSeconds}</div>
-      <div>{p2TotalSeconds}</div>
-      <div>
-        Increment: {increment}
-        <br />
-        Delay: {delay}
-      </div>
+    <div className={styles.container}>
+      <div id={styles.playerAnnouncer}>Current Player: {turn}</div>
+      <div className={styles.label}>Player 1</div>
+      <button type="button" id={styles.turnButton} onClick={passTurn}>
+        Pass Turn
+      </button>
+      <button type="button" id={styles.togglePauseButton}>
+        {mode}
+      </button>
+      <div className={styles.label}>Player 2</div>
     </div>
   );
 }
