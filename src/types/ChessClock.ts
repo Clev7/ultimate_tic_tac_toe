@@ -12,7 +12,8 @@ export enum ChessClockMode {
   PAUSED = "Paused",
   IN_PROGRESS = "In progress",
   P1_TIMEOUT = "Player 1 Timed out",
-  P2_TIMEOUT = "Player 2 Timed out"
+  P2_TIMEOUT = "Player 2 Timed out",
+  UNINITIALIZED = "Uninitialized"
 }
 
 export interface ChessClockData {

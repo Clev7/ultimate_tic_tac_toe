@@ -2,16 +2,28 @@ import { useState } from "react";
 import { TimerMode, Timer, TimerData } from "@/types/Timer";
 
 // TODO: Implement increments and delays
-export function useTimer(initTimeInSeconds: number): Timer {
-  const { TIMEOUT, IN_PROGRESS, PENDING } = TimerMode;
+export function useTimer(): Timer {
+  const { UNINITIALIZED, TIMEOUT, IN_PROGRESS, PENDING } = TimerMode;
+
+  const DEFAULT_VAL = -1;
 
   const [timer, setTimer] = useState({
     startStamp: null,
     pauseStamp: null,
     totalPauseTime: 0,
-    mode: PENDING,
-    initTime: initTimeInSeconds,
+    mode: UNINITIALIZED,
+    initTime: DEFAULT_VAL,
   } as TimerData); // You need the cast otherwise your keys are no longer nullable
+
+  function init(initTimeInSeconds: number): void {
+    setTimer(
+      (timer) =>
+        ({
+          ...timer,
+          initTime: initTimeInSeconds,
+        }) as TimerData,
+    );
+  }
 
   // I think this needs to be converted into a useRef or a useMemo.
   // hmmmm which one?
@@ -32,7 +44,7 @@ export function useTimer(initTimeInSeconds: number): Timer {
         let res = structuredClone(t);
         res.mode = TIMEOUT;
         return res;
-      })
+      });
     }
 
     return time;
@@ -115,6 +127,7 @@ export function useTimer(initTimeInSeconds: number): Timer {
 
   return {
     data: timer,
+    init,
     start,
     stop,
     reset,

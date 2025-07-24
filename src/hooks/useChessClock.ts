@@ -4,34 +4,45 @@ import { Player } from "@/types";
 import { useState } from "react";
 import { useTurn } from "./useTurn";
 
-export function useChessClock(
-  p1InitTime: number,
-  p2InitTime?: number,
-  incrementInSeconds?: number,
-  delayInSeconds?: number,
-) {
-  const { NOT_STARTED, IN_PROGRESS, PAUSED, P1_TIMEOUT, P2_TIMEOUT } = ChessClockMode;
+export function useChessClock() {
+  const { UNINITIALIZED, NOT_STARTED, IN_PROGRESS, PAUSED, P1_TIMEOUT, P2_TIMEOUT } =
+    ChessClockMode;
 
-  const p1Timer = useTimer(p1InitTime);
+  const p1Timer = useTimer();
 
   // Allows for one value to be passed instead
-  const p2Timer = useTimer(p2InitTime ?? p1InitTime);
+  const p2Timer = useTimer();
 
   const [turn, toggleTurn] = useTurn(Player.X, Player.O);
-  const [mode, setMode] = useState(NOT_STARTED);
+  const [mode, setMode] = useState(UNINITIALIZED);
+
+  const DEFAULT_VAL = -1;
 
   // Not sure if I'll need this, but I might as well have them around here
-  const [increment, setIncrement] = useState(incrementInSeconds ?? 0);
-  const [delay, setDelay] = useState(delayInSeconds ?? 0);
+  const [increment, setIncrement] = useState(DEFAULT_VAL);
+  const [delay, setDelay] = useState(DEFAULT_VAL);
 
-  const chessClock: ChessClockData = {
+  let chessClock: ChessClockData = {
     p1Timer,
     p2Timer,
     increment,
     delay,
     turn,
-    mode,
+    mode
   };
+
+  function init(
+    p1InitTime: number,
+    p2InitTime?: number,
+    incrementInSeconds?: number,
+    delayInSeconds?: number,
+  ) {
+    p1Timer.init(p1InitTime);
+    p2Timer.init(p2InitTime ?? p1InitTime);
+    setIncrement(incrementInSeconds ?? 0);
+    setDelay(delayInSeconds ?? 0);
+    setMode(NOT_STARTED);
+  }
 
   function start(): void {
     if (mode != NOT_STARTED) {
@@ -96,15 +107,16 @@ export function useChessClock(
   }
 
   function getTimes(): [number, number] {
-    return [p1Timer.getTime(), p2Timer.getTime()]
+    return [p1Timer.getTime(), p2Timer.getTime()];
   }
 
   return {
     data: chessClock,
+    init,
     start,
     stop,
     reset,
     passTurn,
-    getTimes
+    getTimes,
   };
 }

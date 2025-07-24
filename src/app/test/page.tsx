@@ -6,7 +6,6 @@ import { ChessClock } from "@/components/ChessClock";
 import { useForm } from "@/hooks/useForm";
 import { useState } from "react";
 import styles from "@/styles/test.module.css";
-import { ChessClockData } from "@/types/ChessClock";
 
 interface ClockFormProps {
   formState: any;
@@ -71,7 +70,7 @@ export default function App() {
     delay: 0,
   });
 
-  let chessClock;
+  let chessClock = useChessClock();
 
   return (
     <div id={styles.testContainer}>
@@ -82,12 +81,12 @@ export default function App() {
           onSubmit={() => {
             setShowForm(!showForm);
 
-            chessClock = useChessClock(formState);
+            chessClock.init(formState)
           }}
         />
       )}
 
-      {!showForm && <ChessClock {...chessClock!.data} />}
+      {!showForm && <ChessClock {...chessClock.data} />}
     </div>
   );
 }

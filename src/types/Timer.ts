@@ -3,6 +3,7 @@ export enum TimerMode {
   PENDING = "Pending",
   TIMEOUT = "Timeout",
   IN_PROGRESS = "In Progress",
+  UNINITIALIZED = "Uninitialized"
 }
 
 export interface TimerData {
@@ -15,10 +16,10 @@ export interface TimerData {
 
 export interface Timer {
   data: TimerData,
+  init: (initTimeInSeconds: number) => void,
   getTime: () => number,
   addTime: (time: number) => void,
   start: () => void,
   stop: () => void,
   reset: () => void
 }
-
