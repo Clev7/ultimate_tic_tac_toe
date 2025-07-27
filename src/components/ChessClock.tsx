@@ -22,6 +22,7 @@ export function ChessClock(props: ChessClockProps) {
   }
 
   console.log(`props: ${JSON.stringify(props)}`);
+  console.log("========================================")
 
   return (
     <div className={styles.container}>

@@ -3,7 +3,7 @@ import { TimerMode, Timer, TimerData } from "@/types/Timer";
 
 // TODO: Implement increments and delays
 export function useTimer(): Timer {
-  const { UNINITIALIZED, TIMEOUT, IN_PROGRESS, PENDING } = TimerMode;
+  const { UNINITIALIZED, TIMEOUT, IN_PROGRESS, PENDING, PAUSED } = TimerMode;
 
   const DEFAULT_VAL = -1;
 
@@ -65,6 +65,7 @@ export function useTimer(): Timer {
       let res: TimerData = structuredClone(timer);
 
       res.startStamp = Date.now();
+
       res.mode = IN_PROGRESS;
       return res;
     });
@@ -85,6 +86,8 @@ export function useTimer(): Timer {
       let res: TimerData = structuredClone(timer);
 
       res.pauseStamp = Date.now();
+      res.mode = PAUSED;
+
       return res;
     });
   }
@@ -120,6 +123,7 @@ export function useTimer(): Timer {
         return res;
       }
 
+      // TODO: Look into this.
       res.startStamp -= 5;
       return res;
     });

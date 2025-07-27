@@ -30,9 +30,6 @@ export const parseTime = (time: string): parseResult | null => {
   let minutes = parseInt(groups.minutes ?? "0");
   let seconds = parseInt(groups.seconds ?? "0");
 
-  console.log("Here's the time! Tada!");
-  console.log(hours, minutes, seconds);
-
   return {
     hours,
     minutes,

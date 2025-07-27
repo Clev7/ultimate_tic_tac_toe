@@ -45,7 +45,7 @@ export function useChessClock() {
   }
 
   function start(): void {
-    if (mode != NOT_STARTED) {
+    if (mode != NOT_STARTED && mode != PAUSED) {
       console.log("Invalid mode: " + mode);
       return;
     }
@@ -55,6 +55,31 @@ export function useChessClock() {
       p1Timer.start();
       setMode(IN_PROGRESS);
     }, delay ?? 0);
+  }
+
+  function resume(): void {
+    if (mode != PAUSED) {
+      console.log("Invalid mode: " + mode);
+      return;
+    }
+
+    // Should the delay be reapplied if the game
+    // was paused? Probably not. Just do a 3 second countdown.
+    // Maybe have a 3 second timer for this? Could be nice
+    // for display purposes.
+
+    const COUNTDOWN_MS = 3000;
+    if (turn === Player.X) {
+      setTimeout(() => {
+        p1Timer.start();
+        setMode(IN_PROGRESS);
+      }, COUNTDOWN_MS);
+    } else {
+      setTimeout(() => {
+        p2Timer.start();
+        setMode(IN_PROGRESS);
+      }, COUNTDOWN_MS);
+    }
   }
 
   function stop() {
@@ -94,6 +119,8 @@ export function useChessClock() {
       console.log("Invalid mode: " + mode);
       return;
     }
+
+    console.log("Turn: " + turn);
 
     if (turn === Player.X) {
       p1Timer.stop();
