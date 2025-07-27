@@ -98,11 +98,11 @@ export function useChessClock() {
     if (turn === Player.X) {
       p1Timer.stop();
       p2Timer.addTime(increment);
-      p2Timer.start();
+      setTimeout(() => p2Timer.start(), delay ?? 0);
     } else {
       p2Timer.stop();
       p1Timer.addTime(increment);
-      p1Timer.start();
+      setTimeout(() => p1Timer.start(), delay ?? 0);
     }
   }
 

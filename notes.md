@@ -23,3 +23,7 @@ the pause timestamp. after the unpause, do timeElapsed = Date.now() - startTime 
 4. pause button is clicked and the pauseTime is recorded using Date.now()
 5. button is clicked again for unpausing
 
+After some work, I think I've decided that the ChessClock component is going to receive methods
+from the useChessClock hook in order to be able to work as needed. This helps me separate UI from
+logic. I think doing this can be really good, since other people can ccome and implement their own
+useChessClock and the component would work the same way.

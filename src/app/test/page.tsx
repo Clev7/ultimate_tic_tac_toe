@@ -70,7 +70,7 @@ export default function App() {
     delay: 0,
   });
 
-  const {data: clockData, ...clock} = useChessClock();
+  const { data: clockData, ...clock } = useChessClock();
 
   return (
     <div id={styles.testContainer}>
@@ -81,12 +81,20 @@ export default function App() {
           onSubmit={() => {
             setShowForm(!showForm);
 
-            clock.init(formState)
+            clock.init(formState);
           }}
         />
       )}
 
-      {!showForm && <ChessClock {...formState} {...clockData} passTurn={clock.passTurn} reset={clock.reset} onError={(message: string) => console.log(message)}/>}
+      {!showForm && (
+        <ChessClock
+          {...formState}
+          {...clockData}
+          {...clock}
+          passTurn={clock.passTurn}
+          onError={(message: string) => console.log(message)}
+        />
+      )}
     </div>
   );
 }

@@ -37,4 +37,7 @@ export interface ChessClockProps {
   mode: ChessClockMode;
   onError: (message: string) => void;
   passTurn: () => void;
+  reset: () => void;
+  start: () => void;
+  stop: () => void;
 }

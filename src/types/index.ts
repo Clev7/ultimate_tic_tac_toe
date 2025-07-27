@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { ChessClockMode } from "./ChessClock";
 
 export type UtttBoard = BoardState[][];
 export type BoardState = string[];
@@ -32,16 +31,4 @@ export interface TileProps {
 
 export interface HighlightProps {
   children: string;
-}
-
-export interface ChessClockProps {
-  p1Time: string;
-  p2Time: string;
-  increment?: number;
-  delay?: number;
-  turn: Player;
-  mode: ChessClockMode;
-  onError: (message: string) => void;
-  passTurn: () => void;
-  reset: () => void;
 }
