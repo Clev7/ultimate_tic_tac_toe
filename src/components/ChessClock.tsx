@@ -1,7 +1,7 @@
 import { ChessClockProps, Player } from "@/types";
 import * as time from "@/utils/time";
-import { useState } from "react";
 import styles from "@/styles/chessclock.module.css";
+
 
 export function ChessClock(props: ChessClockProps) {
   const { p1Time, p2Time, delay, turn, increment, mode, onError, passTurn} = props;
@@ -20,6 +20,8 @@ export function ChessClock(props: ChessClockProps) {
     return;
   }
 
+  console.log(`props: ${JSON.stringify(props)}`);
+
   // Just for testing for now. Later on we can think
   // of some more complex UI logic
   const p1TotalSeconds = time.getSeconds(p1ParsedTime);
@@ -27,15 +29,11 @@ export function ChessClock(props: ChessClockProps) {
 
   return (
     <div className={styles.container}>
-      <div id={styles.playerAnnouncer}>Current Player: {turn}</div>
-      <div className={styles.label}>Player 1</div>
-      <button type="button" id={styles.turnButton} onClick={passTurn}>
-        Pass Turn
-      </button>
-      <button type="button" id={styles.togglePauseButton}>
+      <button onClick={turn == Player.X ? passTurn: () => {}} className={styles.label} id={turn == Player.X ? styles.hasTurn : ""}>{time.formatTime(p1ParsedTime)}</button>
+      <div id={styles.togglePauseButton}>
         {mode}
-      </button>
-      <div className={styles.label}>Player 2</div>
+      </div>
+      <button onClick={turn == Player.O ? passTurn: () => {}} className={styles.label} id={turn == Player.O ? styles.hasTurn : ""}>{time.formatTime(p2ParsedTime)}</button>
     </div>
   );
 }

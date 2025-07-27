@@ -1,12 +1,6 @@
 import { Player } from ".";
 import { Timer } from "./Timer";
 
-/* export enum chessClockState {
-  NOT_STARTED = "Not Started",
-  PLAYING = "Playing",
-  PAUSED = "Paused",
-} */
-
 export enum ChessClockMode {
   NOT_STARTED = "Not started",
   PAUSED = "Paused",
@@ -32,4 +26,15 @@ export interface ChessClock {
   reset: () => void;
   passTurn: () => void;
   getTimes: () => [number, number];
+}
+
+export interface ChessClockProps {
+  p1Time: string;
+  p2Time: string;
+  increment?: number;
+  delay?: number;
+  turn: Player;
+  mode: ChessClockMode;
+  onError: (message: string) => void;
+  passTurn: () => void;
 }

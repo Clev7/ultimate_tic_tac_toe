@@ -1,10 +1,20 @@
-interface Result {
+interface parseResult {
   hours: number;
   minutes: number;
   seconds: number;
 }
 
-export const parseTime = (time: string): Result | null => {
+export function formatTime({ hours, minutes, seconds }: parseResult) {
+  return (
+    String(hours).padStart(2, "0") +
+    ":" +
+    String(minutes).padStart(2, "0") +
+    ":" +
+    String(seconds).padStart(2, "0")
+  );
+}
+
+export const parseTime = (time: string): parseResult | null => {
   const regex =
     /(?=.*(?:^\d{1,2}(?:h|m|s)))^(?:(?<hours>\d{1,2})h)? ?(?:(?<minutes>\d{1,2})m)? ?(?:(?<seconds>\d{1,2})s)?$/gm;
 
@@ -30,7 +40,7 @@ export const parseTime = (time: string): Result | null => {
   };
 };
 
-export const getSeconds = ({ hours, minutes, seconds }: Result): number => {
+export const getSeconds = ({ hours, minutes, seconds }: parseResult): number => {
   return hours * 3600 + minutes * 60 + seconds;
 };
 

@@ -2,6 +2,7 @@
   flex-direction: column;
   width: 100vw;
   height: 100vh;
+  display: flex;
 
   justify-content: center;
   align-items: center;
@@ -9,13 +10,14 @@
 
 .label {
   font-size: 50px;
-  background-color: green;
-  padding: 10px;
+  background-color: red;
+  margin: 1rem;
+  padding: 0.5rem;
+  border-radius: 5%;
 }
 
-#turnButton {
-  font-size: 50px;
-  padding: 5px;
+#hasTurn {
+  background-color: green;
 }
 
 #playerAnnouncer {
