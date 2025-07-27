@@ -40,4 +40,5 @@ export interface ChessClockProps {
   reset: () => void;
   start: () => void;
   stop: () => void;
+  resume: () => void;
 }
